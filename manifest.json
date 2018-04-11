@@ -1,21 +1,20 @@
 {
   "manifest_version": 2,
-  "name": "Envia Whatsapps",
-  "description": "Envia missatges de Whatsapp",
+  "name": "Descarrega vídeos de TV3",
+  "description": "Descarrega vídeos de TV3",
   "version": "1.0",
   "web_accessible_resources" : ["/main.js"],
   "content_scripts": [{
-    "matches": ["https://web.whatsapp.com/*"],
+    "matches": ["http://www.ccma.cat/*"],
     "js": ["ui.js"],
     "css": ["main.css"],
-    "run_at": "document_end"
+    "run_at": "document_idle"
   }],
   "permissions":[
         "activeTab"
     ],
   "page_action": {
     "default_icon": "img.png",
-    "default_popup": "popup.html",
-    "default_title": "Envia missatges de Whatsapp"
+    "default_title": "Descarrega vídeos de TV3"
   }
 }

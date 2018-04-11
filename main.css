@@ -1,45 +1,114 @@
-.envia {
-  position: absolute;
+body {
+  background-color: #bbbb;
+}
+
+#descarregar_marc {
+  position: fixed;
+  z-index: 100000;
+  top: -370px;
   left: 50%;
   transform: translateX(-50%);
   width: 400px;
-  height: 280px;
-  background-color: rgb(217, 219, 214);
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0px 2px 20px 2px grey;
-  top: -200px;
-  transition: all .4s;
+  height: 415px;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  animation: all 1s;
+  transition: all 1s;
+  opacity: 0.9;
 }
 
-.envia input, .envia textarea {
+#descarregar_marc:hover {
+  top: 0;
+  opacity: 1;
+}
+
+#descarregar_marc_btn {
   position: absolute;
-  top: 24px;
-  left: 40px;
-  width: 300px;
-  padding: 10px;
+  bottom: 0;
+  left: 0;
+  font-size: 18px;
+  padding: 8px 15px;
+  background-color: transparent;
   border: none;
-  border-radius: 2px;
-  font-size: 16px;
+  animation: all 1s;
+  transition: all 1s;
+  border-radius: 40px;
+  box-sizing: border-box;
+  border: 3px solid transparent;
 }
 
-.envia textarea {
-  top: 80px;
-  height: 100px;
-}
-
-.envia button {
-  position: absolute;
-  top: 220px;
-  left: 40px;
-  width: 320px;
-  padding: 10px;
-  background-color: #2d9388;
+#descarregar_marc:hover #descarregar_marc_btn {
+  background-color: rgba(0, 0, 0, .7);
   color: white;
-  border: none;
-  border-radius: 2px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   cursor: pointer;
 }
 
-.envia:hover{
-  top:0;
+#descarregar_marc:hover #descarregar_marc_btn:hover {
+  background-color: white;
+  color: #36383a;
+  border: 3px solid #36383a;
+  cursor: pointer;
+}
+
+#descarregar_marc_btn:focus {
+  outline: none;
+}
+
+#descarregar_marc img {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+}
+
+#descarregar_marc h1, #descarregar_marc p {
+  text-align: center;
+  margin: 10px 5%;
+  width: 90%;
+  font-size: 28px;
+  max-height: 70px;
+  overflow: scroll;
+}
+
+#descarregar_marc p {
+  position: absolute;
+  top: 270px;
+  font-size: 18px;
+}
+
+#descarregar_marc a {
+  text-decoration: none;
+}
+
+.botonsMes {
+  width: 360px !important;
+}
+
+.botonsMes #dtv31 {
+  background-color: red;
+}
+
+#dtv32 {
+  background-color: red;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  direction: rtl;
+  display: block;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  height: 30px;
+  line-height: 30px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  text-decoration-color: rgb(255, 255, 255);
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+  text-transform: uppercase;
+  width: 80px;
 }

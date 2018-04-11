@@ -1,46 +1,46 @@
   var body = document.getElementsByTagName("body")[0];
   var head = document.getElementsByTagName("head")[0];
-  var container = document.createElement("div");
-  container.classList.add("envia");
-  body.appendChild(container);
 
-  var telefon = document.createElement("input");
-  telefon.setAttribute("placeholder", "Telèfon");
-  var msg = document.createElement("textarea");
-  msg.setAttribute("placeholder", "Missatge");
-  var btn = document.createElement("button");
-  btn.innerHTML = "CARREGANT...";
-  container.appendChild(telefon);
-  container.appendChild(msg);
-  container.appendChild(btn);
-
-  function enviaMissatge(to, body) {
-    var msg = Store.Msg.models[0];
-    msg.id.id = idd();
-    msg.id.remote = "34" + to + "@c.us";
-    msg.id.fromMe = true;
-    msg.type = "chat";
-    msg.body = body;
-    msg.to = "34" + to + "@c.us";
-    msg.t = Math.ceil(new Date().getTime() / 1000);
-    Store.Msg.send(msg);
-  };
-  var idd = function() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < 20; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
-    return text;
-  }
-
-  var int = setInterval(function() {
-      if (document.getElementById('side') != null) {
-        window.setTimeout(function() {
-          btn.innerHTML = "ENVIAR";
-          btn.addEventListener("click", function() {
-            enviaMissatge(telefon.value, msg.value);
-          });
-        }, 500);
-        clearInterval(int);
+  $(document).ready(function() {
+    var type, codi;
+    transformar = function(str) {
+      if ((str.indexOf("ccma") != -1) && (str.indexOf("/video/") != -1) && (str.indexOf("embed/") === -1)) {
+        codi = str.substring(str.lastIndexOf("/video/") + 7, str.lastIndexOf("/"));
+        type = "video";
+      } else if ((str.indexOf("ccma") != -1) && (str.indexOf("/embed/")) != -1) {
+        codi = str.substring(str.lastIndexOf("/embed/") + 7, str.length);
+        type = "video";
+      } else if ((str.indexOf("ccma") != -1) && (str.indexOf("/audio/") != -1) && (str.indexOf("embed/") === -1)) {
+        codi = str.substring(str.lastIndexOf("/audio/") + 7, str.lastIndexOf("/"));
+        type = "audio";
       }
-    },
-    200);
+      return "http://dinamics.ccma.cat/pvideo/media.jsp?media=" + type + "&version=0s&idint=" + codi;
+    };
+    var url = transformar(window.location + "");
+    var dw;
+    $.ajax({
+      url: 'http://marcpujolgualdo.cat/tv3/index.php',
+      type: "POST",
+      data: {
+        url: url
+      },
+      success: function(data_b) {
+        var data = JSON.parse(data_b);
+        dw = data.media.url;
+        if (data.media.url.length) {
+          dw = data.media.url[data.media.url.length - 1].file;
+        }
+        $(".F-mediaPrincipal").empty().html("<video controls width='100%'><source src='" + dw + "' type='video/mp4'></video>");
+        var div = document.createElement("div");
+        div.id = "descarregar_marc";
+        body.appendChild(div);
+        $("#descarregar_marc").html("<h1>" + data.informacio.titol + "</h1><img alt='imatge' src='" + data.imatges.url + "'><p>" + data.informacio.durada.text + " | " + data.informacio.data_emissio.text + "<br>" + data.informacio.programa + " | " + data.informacio.tematica.text + "</p><a href='" + dw + "' download target='_blank'><button id='descarregar_marc_btn'>Descarregar vídeo</button></a>");
+        $(".botonsMes").append("<div class='R-linkMes'><a id='dtv31' href='" + dw + "' download target='_blank' title='DESCARREGA'>DESCARREGA</a></div>");
+        $(".R-itemvideoInfo .titol").after("<a id='dtv32' href='" + dw + "' download target='_blank' title='DESCARREGA'>DESCARREGA</a>");
+        $(".F-infoPrograma .F-dataCompartir").append("");
+      },
+      error: function(error) {
+        alert("Error descarregant el video\n" + error.statusText);
+      }
+    });
+  });
