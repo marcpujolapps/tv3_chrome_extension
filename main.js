@@ -3,6 +3,7 @@
 
   $(document).ready(function() {
     var type, codi;
+    $("#contenidor_megabanner").remove();
     transformar = function(str) {
       if ((str.indexOf("ccma") != -1) && (str.indexOf("/video/") != -1) && (str.indexOf("embed/") === -1)) {
         codi = str.substring(str.lastIndexOf("/video/") + 7, str.lastIndexOf("/"));
